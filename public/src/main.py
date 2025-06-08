@@ -1,12 +1,39 @@
-from public.src.htmlnode import HTMLNode
+from htmlnode import HTMLNode
+from leafnode import LeafNode
+from parentnode import ParentNode
 from textnode import TextNode
 from textnode import TextType
 
+
 def main():
-    new_html_node = HTMLNode("101", "New HTML node", None, {"href": "https://www.google.com", "target": "_blank"})
-    # This will print the object details
-    print(new_html_node)
-    print("Method test: " + "\n" + new_html_node.props_to_html())
+    child_node = LeafNode("child", "span")
+    parent_node = ParentNode("div", [child_node])
+    print(parent_node.to_html())
+
+    print(parent_node.to_html() == "<div><span>child</span></div>")
+
+    new_node = ParentNode(
+    "p",
+    [
+        LeafNode("Bold text", "b"),
+        LeafNode("Normal text", None),
+        LeafNode("Italic text", "i"),
+        LeafNode("Normal text", None)
+    ],
+)
+
+    print(new_node.to_html())
+
+    grandchild = LeafNode("grandchild text", "b")
+    child = ParentNode("span", [grandchild])
+    parent = ParentNode("div", [child])
+
+    print(parent.to_html())
+
+
+
+
+
 
 
 if __name__ == "__main__":

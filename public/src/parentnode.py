@@ -1,16 +1,22 @@
 from htmlnode import HTMLNode
+from leafnode import LeafNode
 
 
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
-        if tag is None:
-            raise ValueError('ParentNode must have a tag.')
-        # you could use if children is None here, however, this is more robust.
-        # not checks everything, including falsy values and an empty list if passed
-        if not children:
-            raise ValueError('children cannot be None')
         super().__init__(tag=tag, value=None, children=children, props=props)
 
     def to_html(self):
-        pass
-
+        if self.tag == None:
+            raise ValueError('ParentNode must have a tag.')
+        if not self.children:
+            raise ValueError('Argument "children" cannot be None.')
+        
+        list_of_children = []
+        
+        for child in self.children:
+            list_of_children.append(child.to_html())
+            
+        final_string = "".join(list_of_children)
+        
+        return f"<{self.tag}>{final_string}</{self.tag}>"
