@@ -17,3 +17,6 @@ class TestCases(unittest.TestCase):
     def test_leaf_to_head(self):
         node = LeafNode("This contains meta data", "head")
         self.assertEqual(node.to_html(), "<head>This contains meta data</head>")
+
+    
+    
