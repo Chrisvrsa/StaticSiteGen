@@ -30,12 +30,9 @@ def main():
 
     print(parent.to_html())
 
-
-
-
-
-
-
+# self note, as someone coming from other languages. __name__ == "__main__" means that this files should be run 
+# when purposley running the file, it should not be run if its imported to another file. Every file in python 
+# automatically has a name variable
 if __name__ == "__main__":
     main()
     

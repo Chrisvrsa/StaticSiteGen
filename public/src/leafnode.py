@@ -1,5 +1,6 @@
 from htmlnode import HTMLNode
 
+# for leaf node, we pass in value first. I know its weird. 
 class LeafNode(HTMLNode):
     def __init__(self, value, tag=None, props=None):
         if value is None:
