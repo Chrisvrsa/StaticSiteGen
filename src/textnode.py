@@ -1,5 +1,6 @@
 from enum import Enum
 
+# We are in number 4 bullet of ch2: Nodes l3 HTMLNode
 class TextType(Enum):
     TEXT = "text"
     BOLD = "bold"
@@ -20,3 +21,4 @@ class TextNode:
 
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
+    
