@@ -37,7 +37,7 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
         class FakeType:
             pass
         with self.assertRaises(ValueError):
-            node = TextNode("Oops", FakeType())
+            node = TextNode("Oops", FakeType()) # type: ignore
             text_node_to_html_node(node)
 
 if __name__ == '__main__':

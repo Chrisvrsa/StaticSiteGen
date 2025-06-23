@@ -1,10 +1,11 @@
 from textnode import TextNode
 from leafnode import LeafNode
 from parent_node import ParentNode
+from textnode import TextType
 
 
 def main():
-    textnode = TextNode("This is some anchor text", "link", "https://www.boot.dev")
+    textnode = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
     print(textnode)
 
     # Testing recursive function .to_html

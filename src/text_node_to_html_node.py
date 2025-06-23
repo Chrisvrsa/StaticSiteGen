@@ -1,4 +1,4 @@
-from src.leafnode import LeafNode
+from leafnode import LeafNode
 from textnode import TextNode, TextType
 
 node = TextNode("Hello World", TextType.IMAGE)
