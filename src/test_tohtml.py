@@ -1,5 +1,4 @@
 import unittest
-
 from parent_node import ParentNode
 from leafnode import LeafNode
 from unittest import TestCase

@@ -8,7 +8,7 @@ def main():
     textnode = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
     print(textnode)
 
-    # Testing recursive function .to_html
+    # test_files recursive function .to_html
     node = ParentNode(
         "p",
         [
@@ -21,7 +21,7 @@ def main():
 
     print(node.to_html())
 
-    # Testing text_node_to_html_node function
+    # test_files text_node_to_html_node function
 
 
 

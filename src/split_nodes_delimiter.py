@@ -49,7 +49,8 @@ def main():
                       TextNode("This is **italic**", TextType.BOLD),
                       TextNode("This is a `code block` and its in **bold**", TextType.TEXT)
                       ]
-    print(split_nodes_delimiter(original_nodes, "**", TextType.BOLD))
+    stuff = split_nodes_delimiter(original_nodes, "**", TextType.BOLD)
+    print(stuff)
 
 
 
