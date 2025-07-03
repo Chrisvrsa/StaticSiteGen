@@ -10,7 +10,7 @@ class BlockType(Enum):
 
 def block_to_block_type(markdown_block_text):
     valid_headers_list = ["# ", "## ", "### ", "#### ", "##### ", "###### "]
-    
+
     for valid_header in valid_headers_list:
         if markdown_block_text.startswith(valid_header):
             return BlockType.HEADING
@@ -40,7 +40,6 @@ def block_to_block_type(markdown_block_text):
         if tally == split_sections_len:
             return BlockType.UNORDERED_LIST
         
-        
     elif markdown_block_text.startswith("1. "):
         split_sections = markdown_block_text.split("\n")
         tally = 0
@@ -50,9 +49,7 @@ def block_to_block_type(markdown_block_text):
             if item.startswith(f"{count}. "):
                 tally += 1
         if len(split_sections) == tally:
-            return BlockType.ORDERED_LIST
-            
-
+            return BlockType.ORDERED_LIST   
     # final case
     else:
         return BlockType.PARAGRAPH
