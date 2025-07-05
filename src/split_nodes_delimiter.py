@@ -1,6 +1,8 @@
 from src.textnode import TextType, TextNode
 from enum import Enum
 
+# For nodes that are wrapped with inline modifications such as bold, italic and code.
+
 class Delimiters(Enum):
     BOLD = "**"
     ITALIC = "_"

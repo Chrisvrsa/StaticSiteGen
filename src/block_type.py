@@ -10,6 +10,7 @@ class BlockType(Enum):
 
 def block_to_block_type(markdown_block_text):
     valid_headers_list = ["# ", "## ", "### ", "#### ", "##### ", "###### "]
+    valid_unordered_list = ["* ", "- ", "+ "]
 
     for valid_header in valid_headers_list:
         if markdown_block_text.startswith(valid_header):
@@ -29,14 +30,18 @@ def block_to_block_type(markdown_block_text):
         if tally == split_sections_len:
             return BlockType.QUOTE
             
-    elif markdown_block_text.startswith("- "):
+                
+    elif markdown_block_text[:2] in valid_unordered_list:
         split_sections = markdown_block_text.split("\n")
         split_sections_len = len(split_sections)
         tally = 0
 
         for section in split_sections:
-            if section.startswith("- "):
-                tally += 1
+            for character in valid_unordered_list:
+                if section.lstrip().startswith(character):
+                    tally += 1
+                    break  # Stop checking after first match
+
         if tally == split_sections_len:
             return BlockType.UNORDERED_LIST
         
