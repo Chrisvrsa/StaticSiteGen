@@ -9,17 +9,9 @@ This is the same paragraph on a new line
 - with items
 """
 
-def markdown_to_blocks(markdown):
-    # returns a list
-    # strip excessive spaces
-    # /n/n is allowed. /n is also allowed. Anything above two new lines is not allowed
-    text_list = markdown.split('\n\n')
-    print(text_list)
-    for i, item in enumerate(text_list):
-        text_list[i] = item.strip()
-        if item.startswith('\n'):
-            text_list[i] = item.replace('\n', "")
 
+def markdown_to_blocks(markdown):
+    text_list = [item.strip() for item in markdown.split('\n\n') if item.strip() != ""]
     return text_list
 
 lists = markdown_to_blocks(md)
