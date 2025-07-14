@@ -47,6 +47,20 @@ def copy_recursive(src, dst):
             with open(dst, 'wb') as f_dst:
                 f_dst.write(f_src.read())
             print(f"Copied file: {src} -> {dst}")
+            
+
+# Extracts the header from the raw markdown
+def extract_title(markdown):
+    items = markdown.split("\n")
+    for item in items:
+        item = item.lstrip()
+        if item[0:2].startswith("# "):
+            item = item[2:].strip()
+            return item
+    raise Exception("No header found")
+
+
+
 
 
 if __name__ == "__main__":
