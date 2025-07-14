@@ -29,6 +29,10 @@ def main():
     copy_recursive(src_dir, dst_dir)
     print("Static content copied successfully.")
 
+    # Generate page
+    generate_page(os.path.abspath("content/index.md"), os.path.abspath("template.html"), os.path.abspath("public/index.html"))
+
+
 
 def recursive_delete_files(path):
     if not os.path.exists(path):
@@ -103,13 +107,15 @@ def generate_page(from_path, template_path, dest_path):
                 template_content = temp_file.read()
 
     # Conversion
-    nodes = markdown_to_html_node(markdown_content)
-    html_conversion = nodes.tohtml()
-    return html_conversion
+    html_node = markdown_to_html_node(markdown_content)
+    html_string_conversion = html_node.to_html()
+    title_of_page = extract_title(markdown_content)
 
+    # Replace title and content in the TEMPLATE with the actual content
+    replace_template = template_content.replace("{{ Title }}", title_of_page).replace("{{ Content }}", html_string_conversion)
 
-
-
+    with open(dest_path, "w") as static_site:
+        static_site.write(replace_template)
 
 
 if __name__ == "__main__":
