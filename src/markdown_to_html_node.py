@@ -5,6 +5,7 @@ from block_type import block_to_block_type
 from markdown_to_blocks import markdown_to_blocks
 from text_node_to_html_node import text_node_to_html_node
 from text_to_textnodes import text_to_textnodes
+from leafnode import LeafNode
 
 def markdown_to_html_node(markdown):
     markdown_blocks = markdown_to_blocks(markdown)
@@ -30,7 +31,7 @@ def markdown_to_html_node(markdown):
             case BlockType.CODE:
                 cleaned_code_block = block.replace("```", "")
                 new_node = ParentNode("pre", [
-                    HTMLNode("code", cleaned_code_block)
+                    LeafNode("code", cleaned_code_block)
                 ])
                 html_nodes.append(new_node)
             
