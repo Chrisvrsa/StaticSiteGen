@@ -4,6 +4,7 @@ from leafnode import LeafNode
 from parent_node import ParentNode
 from textnode import TextType
 from markdown_to_html_node import markdown_to_html_node
+from pathlib import Path
 
 def main():
     src_dir = "static"
@@ -16,8 +17,9 @@ def main():
     copy_recursive(src_dir, dst_dir)
     print("Static content copied successfully.")
 
-    # Generate page
-    generate_page(os.path.abspath("content/index.md"), os.path.abspath("template.html"), os.path.abspath("public/index.html"))
+    # Generate pages recursively from the content directory
+    generate_pages_recursive(os.path.abspath("content"), os.path.abspath("template.html"), os.path.abspath("public"))
+    
 
 def recursive_delete_files(path):
     if not os.path.exists(path):
@@ -32,6 +34,7 @@ def recursive_delete_files(path):
             os.remove(item_path)
 
     os.rmdir(path)
+
 
 def copy_recursive(src, dst):
     if os.path.isdir(src):
@@ -49,6 +52,7 @@ def copy_recursive(src, dst):
                 f_dst.write(f_src.read())
             print(f"Copied file: {src} -> {dst}")
 
+
 # Extracts the header from the raw markdown
 def extract_title(markdown):
     items = markdown.split("\n")
@@ -57,10 +61,10 @@ def extract_title(markdown):
             return item[2:].strip()
     raise Exception("No header found")
 
+
 # should take an abs path
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
-
     markdown_content = ""
     template_content = ""
 
@@ -81,9 +85,10 @@ def generate_page(from_path, template_path, dest_path):
                 template_content = temp_file.read()
         else:
             raise Exception("Not a file! Please input a file's absolute path")
+        
     else:
         raise Exception("File path does not exist")
-
+    
     # Conversion
     html_node = markdown_to_html_node(markdown_content)
     html_string_conversion = html_node.to_html()
@@ -99,6 +104,19 @@ def generate_page(from_path, template_path, dest_path):
 
     with open(dest_path, "w") as static_site:
         static_site.write(replace_template)
+
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    for filename in os.listdir(dir_path_content):
+        from_path = os.path.join(dir_path_content, filename)
+        dest_path = os.path.join(dest_dir_path, filename)
+        if os.path.isfile(from_path):
+            dest_path = Path(dest_path).with_suffix(".html")
+            generate_page(from_path, template_path, dest_path)
+        else:  # Handle subdirectories recursively
+            os.makedirs(dest_path, exist_ok=True)
+            generate_pages_recursive(from_path, template_path, dest_path)
+
 
 if __name__ == "__main__":
     main()
